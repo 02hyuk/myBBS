@@ -31,19 +31,35 @@
 	</nav>
 	<!--내비게이션 바 끝-->
 
-    <!--로그인 양식-->
+    <!--회원가입 양식-->
     <div class="container">
         <div>
             <div>
-                <form method="post" action="loginAction.jsp">
-                    <h3 style="text-align: center">로그인 화면</h3>
+                <form method="post" action="joinAction.jsp">
+                    <h3 style="text-align: center">회원가입 화면</h3>
                     <div>
                         <input type="text" placeholder="아이디" name="userID" maxlength="20">
                     </div>
                     <div>
                         <input type="password" placeholder="비밀번호" name="userPassword" maxlength="20">
                     </div>
-                    <input type="submit" value="로그인">
+					<div>
+                        <input type="text" placeholder="이름" name="userName" maxlength="20">
+                    </div>
+					<div style="text-align:center">
+                        <div>
+							<label>
+								<input type="radio" name="userGender" value="남자">남자
+							</label>
+							<label>
+								<input type="radio" name="userGender" value="여자">여자
+							</label>
+						</div>
+                    </div>
+					<div>
+                        <input type="email" placeholder="이메일" name="userEmail" maxlength="20">
+                    </div>
+                    <input type="submit" value="회원가입">
                 </form>
             </div>
         </div>
