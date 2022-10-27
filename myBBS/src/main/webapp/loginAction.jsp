@@ -14,12 +14,28 @@
 </head>
 <body>
 	<%
+		// 세션에 아이디값 담겨있는지 체크
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String)session.getAttribute("userID");
+		}
+		// 이미 로그인이 되어 있으면 다시 로그인 못하게 메인 페이지로 이동
+		if(userID != null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 로그인이 되어 있습니다')");
+			script.println("location.href='main.jsp'");
+			script.println("</script>");
+		}
+	%>
+	<%
 		UserDAO userDAO = new UserDAO();
 		int result = userDAO.login(user.getUserID(), user.getUserPassword());
 		PrintWriter script = response.getWriter();
 	%>
 	<%
 		if(result == 1){
+			session.setAttribute("userID", user.getUserID()); // 로그인 성공시 세션에 값 추가
 			script.println("<script>");
 			script.println("alert('로그인 성공')");
 			script.println("location.href='main.jsp'");
@@ -43,7 +59,6 @@
 			script.println("history.back()");
 			script.println("</script>");
 		}
-	%>
-	
+	%>	
 </body>
 </html>

@@ -17,6 +17,21 @@
 </head>
 <body>
 	<%
+		// 세션에 아이디값 담겨있는지 체크
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String)session.getAttribute("userID");
+		}
+		// 이미 로그인이 되어 있으면 다시 회원가입 못하게 메인 페이지로 이동
+		if(userID != null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 로그인이 되어 있습니다')");
+			script.println("location.href='main.jsp'");
+			script.println("</script>");
+		}
+	%>
+	<%
 		// 입력한 5개 정보 중 하나라도 누락되면
 		if(user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null
 			|| user.getUserGender() == null || user.getUserEmail() == null){
@@ -37,6 +52,7 @@
 				script.println("history.back()");
 				script.println("</script>");
 			} else {
+				session.setAttribute("userID", user.getUserID()); // 회원가입시 세션에 값 추가
 				script.println("<script>");
 				script.println("alert('회원가입 성공')");
 				script.println("location.href = 'main.jsp'");
