@@ -143,4 +143,17 @@ public class BbsDAO {
 		}
 		return -1; // 데이터베이스 오류
 	}
+	public int delete(int bbsID) {
+		// 실제로 데이터를 삭제하는 것이 아닌, 유효숫자(bbsAvailable)을 0으로 바꿔줌
+		String sql = "update bbs set bbsAvailable = 0 where bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bbsID);
+			return pstmt.executeUpdate(); // pstmt 안에 들어있는 sql문 실행한 뒤 변화한 행수 리턴(1 리턴)
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+		
+	}
 }
